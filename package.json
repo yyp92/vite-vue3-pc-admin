@@ -1,0 +1,34 @@
+{
+  "name": "vite-vue3-pc-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build:test": "vue-tsc -b && vite build --mode test",
+    "build:prod": "vue-tsc -b && vite build --mode production",
+    "preview": "vite preview",
+    "preinstall": "node ./scripts/preinstall.js"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "dayjs": "^1.11.13",
+    "element-plus": "^2.10.4",
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/tsconfig": "^0.7.0",
+    "fast-glob": "^3.3.3",
+    "mockjs": "^1.1.0",
+    "sass": "^1.89.2",
+    "typescript": "~5.8.3",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-icons": "^22.1.0",
+    "unplugin-vue-components": "^28.8.0",
+    "vite": "^7.0.4",
+    "vite-plugin-mock": "^3.0.2",
+    "vue-tsc": "^2.2.12"
+  }
+}
