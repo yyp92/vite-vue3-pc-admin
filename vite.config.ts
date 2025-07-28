@@ -27,9 +27,9 @@ export default defineConfig(({mode}: ConfigEnv) => {
                     ElementPlusResolver(),
 
                     // 自动导入图标组件
-                    IconsResolver({
-                        prefix: 'Icon',
-                    }),
+                    // IconsResolver({
+                    //     prefix: 'Icon',
+                    // }),
                 ],
             }),
             Components({
@@ -38,9 +38,9 @@ export default defineConfig(({mode}: ConfigEnv) => {
                     ElementPlusResolver(),
 
                     // 自动注册图标组件
-                    IconsResolver({
-                        enabledCollections: ['ep'],
-                    }),
+                    // IconsResolver({
+                    //     enabledCollections: ['ep'],
+                    // }),
                 ],
 
                 // 自动导入 ts， 否则使用组件不会提示
@@ -52,6 +52,8 @@ export default defineConfig(({mode}: ConfigEnv) => {
             }),
 
             viteMockServe({
+                // todo 有了正式接口就把： enable 设置为 false
+                // enable: false,
                 enable: mode === 'development',
 
                 // Mock 文件路径：默认 'mock'
