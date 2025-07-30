@@ -1,10 +1,14 @@
 import {defineStore} from 'pinia'
+import type {RouteRecordRaw} from 'vue-router'
 import {login} from '@/api/user'
 import type {Login, LoginResponse} from '@/api/user/type'
 import {localCache} from '@/utils/cache'
+// 常量路由
+import {constantRoute} from '@/router/route'
 
 interface UserState {
-    token: string | null
+    token: string | null,
+    menuRoutes: RouteRecordRaw[]
 }
 
 const useUserStore = defineStore(
@@ -13,7 +17,8 @@ const useUserStore = defineStore(
         state: (): UserState => {
             return {
                 // 用户唯一标识
-                token: localCache.getCache('TOKEN') || ''
+                token: localCache.getCache('TOKEN') || '',
+                menuRoutes: constantRoute
             }
         },
 
