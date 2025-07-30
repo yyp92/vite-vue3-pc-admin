@@ -1,12 +1,16 @@
 import {defineStore} from 'pinia'
 import {login} from '@/api/user'
-import type {Login} from '@/api/user/type'
+import type {Login, LoginResponse} from '@/api/user/type'
 import {localCache} from '@/utils/cache'
+
+interface UserState {
+    token: string | null
+}
 
 const useUserStore = defineStore(
     'User',
     {
-        state: () => {
+        state: (): UserState => {
             return {
                 // 用户唯一标识
                 token: localCache.getCache('TOKEN') || ''
@@ -15,7 +19,7 @@ const useUserStore = defineStore(
 
         actions: {
             async userLogin(data: Login) {
-                const result: any = await login(data)
+                const result: LoginResponse = await login(data)
                 const {
                     code,
                     data: resData
@@ -23,14 +27,14 @@ const useUserStore = defineStore(
 
                 if (code === 200) {
                     const {token} = resData
-                    this.token = token
+                    this.token = (token as string)
                     localCache.setCache('TOKEN', token)
 
                     // 能保证当前 async 函数返回一个成功的 promise
                     return 'ok'
                 }
                 else {
-                    return Promise.reject(new Error(resData?.message))
+                    return Promise.reject(new Error(resData?.message ))
                 }
             }
         },

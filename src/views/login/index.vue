@@ -10,18 +10,23 @@
                 :span="12"
                 :xs="24"
             >
-                <el-form class="login-form">
+                <el-form
+                    class="login-form"
+                    :model="loginForm"
+                    :rules="rules"
+                    ref="loginFormRef"
+                >
                     <h1>Hello</h1>
                     <h2>欢迎来到甄选平台</h2>
 
-                    <el-form-item>
+                    <el-form-item prop="username">
                         <el-input
                             :prefix-icon="User"
                             v-model="loginForm.username"
                         />
                     </el-form-item>
 
-                    <el-form-item>
+                    <el-form-item prop="password">
                         <el-input
                             type="password"
                             :prefix-icon="Lock"
@@ -54,18 +59,65 @@
     import {reactive, ref} from 'vue'
     import {useRouter} from 'vue-router'
     import {ElNotification} from 'element-plus'
+    import type { FormInstance } from 'element-plus'
     import useUserStore from '@/store/modules/user'
+    import {getTimeText} from '@/utils/time'
 
     const $router = useRouter()
     const userStore = useUserStore()
+    const loginFormRef = ref()
     let loginForm = reactive({
         username: 'admin',
         password: '111111'
     })
     let loading = ref(false)
 
+    /**
+     * * 自定义校验函数
+     * @param rule 校验规则对象
+     * @param value 表单元素文本内容
+     * @param callback 函数，如果符合条件callback放行通过。如果不符合条件，callback注入错误提示信息
+     */
+    const validatorUserName = (rule: any, value: any, callback: any) => {
+        if (value.length >= 5) {
+            callback()
+        }
+        else {
+            callback(new Error('账号长度至少五位'))
+        }
+    }
+
+    const rules = {
+        username: [
+            // {
+            //     required: true,
+            //     min: 6,
+            //     max: 10,
+            //     message: '账号长度至少六位',
+            //     trigger: 'change'
+            // },
+
+            {
+                validator: validatorUserName,
+                trigger: 'change'
+            }
+        ],
+        password: [
+            {
+               required: true,
+                min: 6,
+                max: 15,
+                message: '密码长度至少六位',
+                trigger: 'change' 
+            }
+        ]
+    }
+
 
     const handleLogin = async () => {
+        // 全部表单项校验通过再发请求
+        await loginFormRef.value.validate()
+
         loading.value = true
 
         try {
@@ -74,7 +126,8 @@
 
             ElNotification({
                 type: 'success',
-                message: '登录成功'
+                title: `HI，${getTimeText()}好`,
+                message: '欢迎回来'
             })
         }
         catch(error) {
