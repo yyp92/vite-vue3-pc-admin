@@ -26,17 +26,17 @@
 >
     .logo {
         flex-shrink: 0;
-        width: 100%;
+        width: $base-menu-width;
         height: $base-logo-height;
         color: #fff;
         display: flex;
         align-items: center;
         font-size: $base-logo-text-fontSize;
-        padding-left: 20px;
+        padding-left: 12px;
 
         img {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             margin-right: 12px;
         }
