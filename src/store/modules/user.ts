@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import type {RouteRecordRaw} from 'vue-router'
-import {login} from '@/api/user'
+import {login, reqUserInfo} from '@/api/user'
 import type {Login, LoginResponse} from '@/api/user/type'
 import {localCache} from '@/utils/cache'
 // 常量路由
@@ -8,7 +8,9 @@ import {constantRoute} from '@/router/route'
 
 interface UserState {
     token: string | null,
-    menuRoutes: RouteRecordRaw[]
+    menuRoutes: RouteRecordRaw[],
+    username: string,
+    avatar: string
 }
 
 const useUserStore = defineStore(
@@ -18,7 +20,9 @@ const useUserStore = defineStore(
             return {
                 // 用户唯一标识
                 token: localCache.getCache('TOKEN') || '',
-                menuRoutes: constantRoute
+                menuRoutes: constantRoute,
+                username: '',
+                avatar: ''
             }
         },
 
@@ -40,6 +44,24 @@ const useUserStore = defineStore(
                 }
                 else {
                     return Promise.reject(new Error(resData?.message ))
+                }
+            },
+
+            // 获取用户信息
+            async getUserInfo() {
+                const result = await reqUserInfo()
+                const {
+                    code,
+                    data: resData
+                } = result ?? {}
+
+                if (code === 200) {
+                    const {username, avatar} = resData?.checkUser ?? {}
+                    this.username = username
+                    this.avatar = avatar
+                }
+                else {
+                    
                 }
             }
         },

@@ -13,7 +13,7 @@ export const login = (data: Login) => {
     )
 }
 
-export const getUserInfo = () => {
+export const reqUserInfo = () => {
     return request.get<any, UserInfoResponse>(
         API.USERINFO_URL
     )

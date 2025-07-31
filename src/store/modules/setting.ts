@@ -6,7 +6,10 @@ const useLayoutSettingStore = defineStore(
         state: () => {
             return {
                 // 用于控制菜单是展开还是收起
-                fold: false
+                fold: false,
+
+                // 用于控制刷新效果
+                refresh: false,
             }
         }
     }

@@ -33,12 +33,14 @@
                 size="small"
                 icon="Refresh"
                 circle
+                @click="handleRefresh"
             ></el-button>
 
             <el-button
                 size="small"
                 icon="FullScreen"
                 circle
+                @click="handleFullScreen"
             ></el-button>
 
             <el-button
@@ -48,13 +50,14 @@
             ></el-button>
 
             <img
-                src="../../../public/logo.png"
+                :src="userStore.avatar"
                 class="avatar"
             />
 
             <el-dropdown>
                 <span class="el-dropdown-link">
-                    admin
+                    {{ userStore.username}}
+
                     <el-icon class="el-icon--right">
                         <arrow-down />
                     </el-icon>
@@ -77,12 +80,31 @@
 >
     import {useRoute} from 'vue-router'
     import useLayoutSettingStore from '@/store/modules/setting'
+    import useUserStore from '@/store/modules/user'
 
     const $route = useRoute()
     let layoutSettingStore = useLayoutSettingStore()
+    const userStore = useUserStore()
 
     const changeIcon = () => {
         layoutSettingStore.fold = !layoutSettingStore.fold
+    }
+
+    const handleRefresh = () => {
+        layoutSettingStore.refresh = !layoutSettingStore.refresh
+    }
+
+    const handleFullScreen = () => {
+        // dom对象的一个属性：可以用来判断当前是不是全屏模式
+        // 全屏：true， 不是全屏：false
+        const full = document.fullscreenElement
+
+        if (!full) {
+            document.documentElement.requestFullscreen()
+        }
+        else {
+            document.exitFullscreen()
+        }
     }
 </script>
 

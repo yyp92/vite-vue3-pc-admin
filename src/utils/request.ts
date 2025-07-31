@@ -6,7 +6,8 @@ import type {
     AxiosResponse,
     AxiosError
 } from 'axios'
-import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus'
+import useUserStore from '@/store/modules/user'
 
 // 成功响应的数据结构（后端返回的 response.data 格式）
 interface ApiSuccessData<T = any> {
@@ -36,6 +37,12 @@ const request: AxiosInstance = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    const userStore = useUserStore()
+
+    if (userStore.token) {
+        config.headers.token = userStore.token
+    }
+
     return config
 })
 
