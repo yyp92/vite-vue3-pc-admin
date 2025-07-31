@@ -20,8 +20,7 @@
             <div class="tabbar">2</div>
 
             <div class="content">
-                3
-                <p style="height: 10000px;"></p>
+                <Content />
             </div>
         </div>
     </div>
@@ -34,6 +33,7 @@
 >
     import Logo from './logo/index.vue'
     import Side from './side/index.vue'
+    import Content from './main/index.vue'
     import useUserStore from '@/store/modules/user'
 
     const userStore = useUserStore()

@@ -8,9 +8,13 @@
             <el-menu-item
                 v-if="!item.meta.hidden"
                 :index="item.path"
+                @click="goRoute"
             >
                 <template #title>
-                    <span>标&nbsp;</span>
+                    <el-icon>
+                        <component :is="item.meta.icon"></component>
+                    </el-icon>
+
                     <span>{{ item.meta.title }}</span>
                 </template>
             </el-menu-item>
@@ -22,9 +26,13 @@
             <el-menu-item
                 v-if="!item.children[0].meta.hidden"
                 :index="item.children[0].path"
+                @click="goRoute"
             >
                 <template #title>
-                    <span>标&nbsp;</span>
+                    <el-icon>
+                        <component :is="item.children[0].meta.icon"></component>
+                    </el-icon>
+
                     <span>{{ item.children[0].meta.title }}</span>
                 </template>
             </el-menu-item>
@@ -36,10 +44,14 @@
             :index="item.path"
         >
             <template #title>
+                <el-icon>
+                    <component :is="item.meta.icon"></component>
+                </el-icon>
+
                 <span>{{ item.meta.title }}</span>
             </template>
 
-            <!-- 递归组件 -->
+            <!-- 递归组件，必须有名字 -->
             <Side
                 :menuList="item.children"
             />
@@ -52,6 +64,15 @@
     lang="ts"
     name="Side"
 >
+    import {useRouter} from 'vue-router'
+
+    const $router = useRouter()
+
+    // 点击菜单的回调
+    const goRoute = (vc: any) => {
+        $router.push(vc.index)
+    }
+
     defineProps(['menuList'])
 </script>
 

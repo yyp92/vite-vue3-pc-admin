@@ -1,10 +1,12 @@
 import type { App, Plugin } from 'vue'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // 引入项目中的全部的全局组件
-import Test from '@/components/Test/index.vue'
+// import Test from '@/components/Test/index.vue'
 
 // 全局对象
 const allGlobalComponents: any = {
-    Test
+    // Test,
+    ...ElementPlusIconsVue
 }
 
 // 对外暴露插件对象
