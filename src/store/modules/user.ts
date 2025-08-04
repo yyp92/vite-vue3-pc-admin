@@ -63,6 +63,14 @@ const useUserStore = defineStore(
                 else {
                     
                 }
+            },
+
+            // 退出登录
+            userLogout() {
+                this.token = ''
+                this.username = ''
+                this.avatar = ''
+                localCache.removeCache('TOKEN')
             }
         },
 

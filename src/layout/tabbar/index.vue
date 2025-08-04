@@ -65,7 +65,9 @@
 
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>退出登录</el-dropdown-item>
+                        <el-dropdown-item
+                            @click="handleLogout"
+                        >退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -78,13 +80,15 @@
     lang="ts"
     name="Tabbar"
 >
-    import {useRoute} from 'vue-router'
+    import {useRoute, useRouter} from 'vue-router'
     import useLayoutSettingStore from '@/store/modules/setting'
     import useUserStore from '@/store/modules/user'
 
     const $route = useRoute()
+    const $router = useRouter()
     let layoutSettingStore = useLayoutSettingStore()
     const userStore = useUserStore()
+
 
     const changeIcon = () => {
         layoutSettingStore.fold = !layoutSettingStore.fold
@@ -105,6 +109,20 @@
         else {
             document.exitFullscreen()
         }
+    }
+
+    const handleLogout = () => {
+        // 1. 需要向服务器发送请求[退出登录接口(告诉服务本次token失效)]
+        // 2. 状态管理库中清空相关的数据（token, username, avatar）
+        // 3. 跳转到登录页
+
+        userStore.userLogout()
+        $router.push({
+            path: '/login',
+            query: {
+                redirect: $route.path
+            }
+        })
     }
 </script>
 

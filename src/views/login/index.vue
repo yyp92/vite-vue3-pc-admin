@@ -57,13 +57,14 @@
 >
     import { User, Lock } from '@element-plus/icons-vue'
     import {reactive, ref} from 'vue'
-    import {useRouter} from 'vue-router'
+    import {useRouter, useRoute} from 'vue-router'
     import {ElNotification} from 'element-plus'
     import type { FormInstance } from 'element-plus'
     import useUserStore from '@/store/modules/user'
     import {getTimeText} from '@/utils/time'
 
     const $router = useRouter()
+    const $route = useRoute()
     const userStore = useUserStore()
     const loginFormRef = ref()
     let loginForm = reactive({
@@ -122,7 +123,10 @@
 
         try {
             await userStore.userLogin(loginForm)
-            $router.push('/')
+
+            // 判断登录的时候，路由路径当中是否有query参数，如果有就往query参数跳转，没有跳转到首页
+            const redirect: any = $route.query.redirect
+            $router.push({path: redirect || '/'})
 
             ElNotification({
                 type: 'success',
