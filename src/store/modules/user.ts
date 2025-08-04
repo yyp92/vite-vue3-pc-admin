@@ -59,9 +59,11 @@ const useUserStore = defineStore(
                     const {username, avatar} = resData?.checkUser ?? {}
                     this.username = username
                     this.avatar = avatar
+
+                    return 'ok'
                 }
                 else {
-                    
+                    return Promise.reject('获取用户信息失败')
                 }
             },
 

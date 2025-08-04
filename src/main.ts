@@ -6,6 +6,7 @@ import globalComponentPlugin from './components/index'
 import App from '@/App.vue'
 import router from '@/router/index'
 import pinia from '@/store'
+import '@/permission'
 
 import 'element-plus/es/components/notification/style/css'
 import 'element-plus/es/components/message/style/css'
@@ -19,4 +20,5 @@ app.use(globalComponentPlugin)
 app.use(router)
 app.use(pinia)
 
+import './permission'
 app.mount('#app')
