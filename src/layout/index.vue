@@ -9,8 +9,8 @@
             <el-scrollbar class="menu-container">
                 <el-menu
                     class="menu-inner"
-                    background-color="#001529"
-                    text-color="white"
+                    background-color="#fff"
+                    text-color="#363A45"
                     :default-active="$route.path"
                     :collapse="layoutSettingStore.fold"
                 >
@@ -68,6 +68,7 @@
             flex-direction: column;
             color: #fff;
             transition: all 0.3s;
+            border-right: 1px solid $base-border-color;
 
             .menu-container {
                 flex: 1;

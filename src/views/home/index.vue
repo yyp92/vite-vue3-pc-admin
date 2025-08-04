@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        首页
     </div>
 </template>
 
@@ -8,9 +9,6 @@
     lang="ts"
     name="Home"
 >
-    import {onMounted} from 'vue'
-    import useUserStore from '@/store/modules/user'
-
 </script>
 
 <style
